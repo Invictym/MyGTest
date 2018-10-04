@@ -8,33 +8,48 @@ import com.badlogic.gdx.math.Vector3;
 public class Hero {
     private Vector3 position;
     private Vector3 velocity;
+    private static int SPEED = 100;
 
     private Texture hero;
     private TextureRegion heroRegion;
     private TextureRegion[][] heroTextureRegions;
-    private Animation herAnim;
+    private Animation walkAnim;
+    private Animation hitAnimation;
     private static final int GRAVITY = -10;
     private boolean isMove = false;
+    private boolean isHit = false;
+    private float stateTime = 0;
 
     public Hero(int x, int y) {
         this.position = new Vector3(x, y, 0);
         this.velocity = new Vector3(0, 0 , 0);
-        hero = new Texture("gladiator_arena_sprites.gif");
-        heroTextureRegions = TextureRegion.split(hero, hero.getWidth() / 6, hero.getHeight() / 6);
-        heroRegion = heroTextureRegions[0][0];
-        herAnim = new Animation(0.025f, heroTextureRegions[0][1], heroTextureRegions[0][2], heroTextureRegions[0][3], heroTextureRegions[0][4]);
+        hero = new Texture("characters.png");
+        heroTextureRegions = TextureRegion.split(hero, hero.getWidth() / 23, hero.getHeight() / 4);
+        heroRegion = heroTextureRegions[1][1];
+        walkAnim = new Animation(0.15f, heroTextureRegions[1][0], heroTextureRegions[1][1], heroTextureRegions[1][2], heroTextureRegions[1][3], heroTextureRegions[1][4]);
+        hitAnimation = new Animation(0.33f, heroTextureRegions[1][11], heroTextureRegions[1][13], heroTextureRegions[1][11]);
     }
 
     public void update(float dt) {
+
         velocity.add(0, GRAVITY, 0);
         velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);
         velocity.scl(1 / dt);
 
-        if (isMove) {
-            heroRegion = (TextureRegion) herAnim.getKeyFrame(dt);
+        if (isHit) {
+            stateTime += dt;
+            heroRegion = (TextureRegion) hitAnimation.getKeyFrame(stateTime, false);
+            if (hitAnimation.isAnimationFinished(stateTime)) {
+                isHit = false;
+                stateTime = 0;
+            }
+        } else if (isMove) {
+            stateTime += dt;
+            heroRegion = (TextureRegion) walkAnim.getKeyFrame(stateTime, true);
         } else {
-
+            heroRegion = heroTextureRegions[1][0];
+            stateTime = 0;
         }
 
         if (position.y < 0) {
@@ -55,7 +70,7 @@ public class Hero {
     }
 
     public void moveRight() {
-        velocity.x = 100;
+        velocity.x = SPEED;
         if (heroRegion.isFlipX()) {
             heroRegion.flip(true, false);
         }
@@ -63,7 +78,7 @@ public class Hero {
     }
 
     public void moveLeft() {
-        velocity.x = -100;
+        velocity.x = -SPEED;
         if (!heroRegion.isFlipX()) {
             heroRegion.flip(true, false);
         }
@@ -74,6 +89,10 @@ public class Hero {
         if (position.y < 5) {
             velocity.y = 150;
         }
+    }
+
+    public void hit() {
+        isHit = true;
     }
 
     public void stop() {

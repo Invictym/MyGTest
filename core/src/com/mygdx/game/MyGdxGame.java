@@ -11,16 +11,19 @@ import com.mygdx.states.MenuState;
 
 public class MyGdxGame extends ApplicationAdapter {
 
-    public static final int HEIGHT = 480;
-    public static final int WIDTH = 800;
+    public static int HEIGHT = 800;
+    public static int WIDTH = 480;
 
     SpriteBatch batch;
     private GameStateManager gameStateManager;
 
 
-	@Override
+    @Override
 	public void create () {
         gameStateManager = new GameStateManager();
+        System.out.println(Gdx.graphics.getWidth() + " WIDTH");
+        HEIGHT = Gdx.graphics.getHeight();
+        WIDTH = Gdx.graphics.getWidth();
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(0, 0, 0, 0);
         gameStateManager.push(new MenuState(gameStateManager));

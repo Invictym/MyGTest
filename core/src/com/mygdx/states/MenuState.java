@@ -20,10 +20,11 @@ public class MenuState extends State {
     @Override
     protected void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            System.out.println("AAAAAAAAAA");
             gameStateManager.set(new PlayState(gameStateManager));
         }
-
+        if (Gdx.input.isTouched()) {
+            gameStateManager.set(new SpaceState(gameStateManager));
+        }
     }
 
     @Override
