@@ -1,7 +1,6 @@
 package com.mygdx.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
@@ -19,9 +18,6 @@ public class MenuState extends State {
 
     @Override
     protected void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            gameStateManager.set(new PlayState(gameStateManager));
-        }
         if (Gdx.input.isTouched()) {
             gameStateManager.set(new SpaceState(gameStateManager));
         }
