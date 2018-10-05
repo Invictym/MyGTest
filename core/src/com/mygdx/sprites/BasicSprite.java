@@ -1,15 +1,19 @@
 package com.mygdx.sprites;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.logic.texture.TextureImages;
+
 
 public abstract class BasicSprite {
 
     protected Vector3 position;
     protected Vector3 velocity;
-    protected String texture;
+    protected TextureImages texture;
     protected int textureWidth;
 
-    public BasicSprite(int x, int y, int speedX, int speedY, String texturePath) {
+
+    public BasicSprite(int x, int y, int speedX, int speedY, TextureImages texturePath) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(speedX, speedY, 0);
         texture = texturePath;
@@ -23,6 +27,14 @@ public abstract class BasicSprite {
 
     }
 
+    public boolean isTouch(Rectangle rectangle) {
+        return rectangle.overlaps(getSpriteRectangle());
+    }
+
+    public Rectangle getSpriteRectangle() {
+        return new Rectangle((int) position.x  + textureWidth / 4, (int) position.y  + textureWidth / 4, textureWidth,  textureWidth);
+    }
+
     public Vector3 getPosition() {
         return position;
     }
@@ -31,7 +43,7 @@ public abstract class BasicSprite {
         return velocity;
     }
 
-    public String getTextureName() {
+    public TextureImages getTextureName() {
         return texture;
     }
 

@@ -1,12 +1,13 @@
 package com.mygdx.sprites;
 
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.logic.texture.TextureImages;
 
 public class Ship extends BasicSprite {
 
     private int speed;
 
-    public Ship(int x, int y, int speed, String texturePath, int size) {
+    public Ship(int x, int y, int speed, TextureImages texturePath, int size) {
         super(x, y, 0, 0, texturePath);
         this.speed = speed;
         this.textureWidth = size;

@@ -1,6 +1,7 @@
 package com.mygdx.logic;
 
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.logic.texture.TextureImages;
 import com.mygdx.sprites.Meteorite;
 
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ public class GameLogic {
         List<Meteorite> meteorites = new ArrayList<Meteorite>();
         if (newDt - oldDt > 1) {
             oldDt = newDt;
-            System.out.println(((int) newDt) + "//" + "create meteorite");
+            //System.out.println(((int) newDt) + "//" + "create meteorite");
             Random randomLine = new Random();
             boolean meteoriteLine[] = meteoriteMap[randomLine.nextInt(meteoriteMap.length)];
             for (int i = 0; i < meteoriteLine.length; i++) {
                 if (meteoriteLine[i]) {
-                    meteorites.add(new Meteorite(width /5 * i , hight, -1000, "meteorite.png", MyGdxGame.WIDTH / 10));
+                    meteorites.add(new Meteorite(width /5 * i , hight, -1000, TextureImages.METEORITE, MyGdxGame.WIDTH / 10));
                 }
             }
         }
