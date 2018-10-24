@@ -8,7 +8,7 @@ public class Ship extends BasicSprite {
     private int speed;
 
     public Ship(int x, int y, int speed, TextureImages texturePath, int size) {
-        super(x, y, 0, 0, texturePath);
+        super(x, y, 0, 0, texturePath.toString());
         this.speed = speed;
         this.textureWidth = size;
     }

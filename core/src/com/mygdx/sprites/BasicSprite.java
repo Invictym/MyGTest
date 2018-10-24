@@ -9,14 +9,15 @@ public abstract class BasicSprite {
 
     protected Vector3 position;
     protected Vector3 velocity;
-    protected TextureImages texture;
+    protected String texture;
     protected int textureWidth;
 
 
-    public BasicSprite(int x, int y, int speedX, int speedY, TextureImages texturePath) {
+    public BasicSprite(int x, int y, int speedX, int speedY, String texturePath) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(speedX, speedY, 0);
         texture = texturePath;
+        System.out.println("Texture " + texture);
     }
 
     public void update(float dt) {
@@ -43,7 +44,7 @@ public abstract class BasicSprite {
         return velocity;
     }
 
-    public TextureImages getTextureName() {
+    public String getTextureName() {
         return texture;
     }
 

@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.logic.files.FileWorker;
+
+import java.io.File;
+import java.util.Date;
 
 public class MenuState extends State {
 
@@ -26,6 +30,8 @@ public class MenuState extends State {
     @Override
     public void update(float dt) {
         handleInput();
+        FileWorker.saveScore("a", "b", new Date());
+        System.out.println(FileWorker.getUsersResults());
     }
 
     @Override
