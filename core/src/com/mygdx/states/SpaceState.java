@@ -31,7 +31,6 @@ public class SpaceState extends State {
 
     public SpaceState(GameStateManager gameStateManager) {
         super(gameStateManager);
-        System.out.println("NEW Game");
         camera.setToOrtho(false, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         background = new Texture("background.jpg");
         ship = new Ship(MyGdxGame.WIDTH / 2, 0, MyGdxGame.WIDTH, TextureImages.SHIP, MyGdxGame.WIDTH / 6);
@@ -44,7 +43,7 @@ public class SpaceState extends State {
     protected void handleInput() {
         System.out.println("INPUT " + System.currentTimeMillis());
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
-           float x = Gdx.input.getAccelerometerX();
+            float x = Gdx.input.getAccelerometerX();
             if (x > rotationLevel) {
                 ship.moveLeft();
             } else if (x < -rotationLevel) {
@@ -56,53 +55,45 @@ public class SpaceState extends State {
 
         if (Gdx.input.isTouched()) {
             /*
-            *
-            * Need add logic for shooting
-            *
-            * */
+             *
+             * Need add logic for shooting
+             *
+             * */
         }
-        System.out.println("INPUT " + System.currentTimeMillis());
     }
 
     @Override
     public void update(float dt) {
-        System.out.println("UP " + System.currentTimeMillis());
         handleInput();
         ship.update(dt);
         meteorites.addAll(GameLogic.generateMeteorite(MyGdxGame.WIDTH, MyGdxGame.HEIGHT, dt));
-        System.out.println(dt + "metiorite" + meteorites.size());
-        for (int i =0; i < meteorites.size(); i++) {
+        for (int i = 0; i < meteorites.size(); i++) {
             meteorites.get(i).update(dt);
-            if (meteorites.get(i).getPosition().y < - meteorites.get(i).getTextureWidth()) {
-                System.out.println(meteorites.get(i).getPosition().y);
+            if (meteorites.get(i).getPosition().y < -meteorites.get(i).getTextureWidth()) {
                 meteorites.remove(i);
             }
 
             if (meteorites.get(i).isTouch(ship.getSpriteRectangle())) {
-                System.out.println("LOOOSE" + meteorites.get(i).getSpriteRectangle() + " // " + ship.getSpriteRectangle());
+                GameLogic.saveResult(scoreCount);
                 gameStateManager.set(new MenuState(gameStateManager));
-                FileWorker.saveScore("alex", scoreCount + "", new Date());
             }
         }
         scoreCount += dt * 100;
         camera.update();
-        System.out.println("UP " + System.currentTimeMillis());
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        System.out.println("REND " + System.currentTimeMillis());
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         int x = MyGdxGame.HEIGHT / background.getHeight() + 1;
         batch.draw(background, 0, 0, background.getWidth() * x, background.getHeight() * x);
-        batch.draw(TextureWorker.getTexture(ship.getTextureName()), ship.getPosition().x, ship.getPosition().y, ship.getTextureWidth(), ship.getTextureWidth());
+        batch.draw(TextureWorker.getTexture(ship.getTextureName()), ship.getPosition().x, ship.getPosition().y, ship.getTextureWidth(), ship.getTextureHeight());
         for (Meteorite meteorite : meteorites) {
-            batch.draw(TextureWorker.getTexture(meteorite.getTextureName()), meteorite.getPosition().x, meteorite.getPosition().y,  meteorite.getTextureWidth(), meteorite.getTextureWidth());
+            batch.draw(TextureWorker.getTexture(meteorite.getTextureName()), meteorite.getPosition().x, meteorite.getPosition().y, meteorite.getTextureWidth(), meteorite.getTextureHeight());
         }
         font.draw(batch, scoreText + scoreCount, MyGdxGame.WIDTH - 300, MyGdxGame.HEIGHT - 100);
         batch.end();
-        System.out.println("REND " + System.currentTimeMillis());
     }
 
     @Override

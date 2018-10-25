@@ -11,6 +11,7 @@ public class Ship extends BasicSprite {
         super(x, y, 0, 0, texturePath.toString());
         this.speed = speed;
         this.textureWidth = size;
+        this.textureHeight = size;
     }
 
     @Override

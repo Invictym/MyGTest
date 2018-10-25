@@ -11,13 +11,13 @@ public abstract class BasicSprite {
     protected Vector3 velocity;
     protected String texture;
     protected int textureWidth;
+    protected int textureHeight;
 
 
     public BasicSprite(int x, int y, int speedX, int speedY, String texturePath) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(speedX, speedY, 0);
         texture = texturePath;
-        System.out.println("Texture " + texture);
     }
 
     public void update(float dt) {
@@ -25,7 +25,6 @@ public abstract class BasicSprite {
         velocity.scl(dt);
         position.add(velocity.x, velocity.y, 0);
         velocity.scl(1 / dt);
-
     }
 
     public boolean isTouch(Rectangle rectangle) {
@@ -33,7 +32,15 @@ public abstract class BasicSprite {
     }
 
     public Rectangle getSpriteRectangle() {
-        return new Rectangle((int) position.x  + textureWidth / 4, (int) position.y  + textureWidth / 4, textureWidth,  textureWidth);
+        return new Rectangle((int) position.x + textureWidth / 4, (int) position.y + textureHeight / 4, textureWidth, textureHeight);
+    }
+
+    public void setPosition(Vector3 position) {
+        this.position = position;
+    }
+
+    public void setPosition(int x, int y) {
+        position.set(x, y, 0);
     }
 
     public Vector3 getPosition() {
@@ -50,5 +57,9 @@ public abstract class BasicSprite {
 
     public int getTextureWidth() {
         return textureWidth;
+    }
+
+    public int getTextureHeight() {
+        return textureHeight;
     }
 }

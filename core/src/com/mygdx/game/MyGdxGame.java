@@ -17,29 +17,26 @@ public class MyGdxGame extends ApplicationAdapter {
     SpriteBatch batch;
     private GameStateManager gameStateManager;
 
-
     @Override
-	public void create () {
+    public void create() {
         gameStateManager = new GameStateManager();
-        System.out.println(Gdx.graphics.getWidth() + " WIDTH");
         HEIGHT = Gdx.graphics.getHeight();
         WIDTH = Gdx.graphics.getWidth();
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(0, 0, 0, 0);
         gameStateManager.push(new MenuState(gameStateManager));
-	}
+    }
 
 
-
-	@Override
-	public void render () {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    @Override
+    public void render() {
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         gameStateManager.update(Gdx.graphics.getDeltaTime());
         gameStateManager.render(batch);
-	}
+    }
 
-	@Override
-	public void dispose () {
+    @Override
+    public void dispose() {
 
-	}
+    }
 }
