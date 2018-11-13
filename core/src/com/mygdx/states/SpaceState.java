@@ -41,7 +41,6 @@ public class SpaceState extends State {
 
     @Override
     protected void handleInput() {
-        System.out.println("INPUT " + System.currentTimeMillis());
         if (Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer)) {
             float x = Gdx.input.getAccelerometerX();
             if (x > rotationLevel) {

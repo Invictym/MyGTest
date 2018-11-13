@@ -45,9 +45,7 @@ public class MenuState extends State {
             if (playButton.isClicked(touch)) {
                 gameStateManager.set(new SpaceState(gameStateManager));
             } else if (resultButton.isClicked(touch)) {
-                System.out.println("RESULT");
             } else if (exitButton.isClicked(touch)) {
-                System.out.println("EXIT click");
 
             }
         }

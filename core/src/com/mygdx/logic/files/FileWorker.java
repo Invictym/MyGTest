@@ -30,19 +30,17 @@ public class FileWorker {
 //            Gdx.files.local(RESULTS_FILE_PATH).writeString("", false);
 //        }
 //        return "0";
-//
 //    }
 
     public static String getUserScore() {
         if (Gdx.files.local(RESULTS_FILE_PATH).exists()) {
-            if (Gdx.files.local(RESULTS_FILE_PATH).readString() != "") {
+            if (!Gdx.files.local(RESULTS_FILE_PATH).readString().equals("")) {
                 return (Gdx.files.local(RESULTS_FILE_PATH).readString().split(SPLIT)[1]);
             }
         } else {
             Gdx.files.local(RESULTS_FILE_PATH).writeString("", false);
         }
         return "0";
-
     }
 
     public static void clearResults() {
